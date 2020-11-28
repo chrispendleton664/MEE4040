@@ -83,7 +83,7 @@ B4 = b0*Vdotn/dt+b0*Vn/dt^2+bdash*Vn/dt-b5
 C1 = c4+c6*Wn
 C2 = c5+c7*Wn
 C3 = c0/dt^2+c1+c2*Wn+c3*Wn^2+cdash/dt
-C3 = c0*Wdotn/dt+(c0/dt^2+cdash/dt)*Wn+c8
+C4 = c0*Wdotn/dt+(c0/dt^2+cdash/dt)*Wn+c8
 
 D1 = B2-B1*A2/A1
 D2 = B3-B1*A3/A1
