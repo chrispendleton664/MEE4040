@@ -2,7 +2,14 @@
 
 addpath(AttemptAtInstalling3DArrays)
 
-% Need to define qx, Pt, dt, Wn, Udotn, Un, Vdotn, Wdotn
+% Need to define qx, Pt, dt, Wn, Udotn, Un, Vdotn, Wdotn,
+
+% Blast Pressure Equation
+pm =  %Peak Blast Pressure
+t =  %time
+tp =  %positive phase duration
+alpha = %waveform parameter
+Pt = pm*(1-t/tp)*e^(-alpha*t/tp)
 
 
 % coefficients in the time dependent nonlinear differential equations note:
