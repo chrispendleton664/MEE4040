@@ -9,7 +9,7 @@ pm =  %Peak Blast Pressure
 t =  %time
 tp =  %positive phase duration
 alpha = %waveform parameter
-Pt = pm*(1-t/tp)*e^(-alpha*t/tp)
+Pt = pm*(1-t/tp)*e^(-alpha*t/tp);
 
 
 % coefficients in the time dependent nonlinear differential equations note:
@@ -58,42 +58,42 @@ c2 = 24*pi^4*(Bijsum(1,2)-Bijsum(6,6))/a*b;
 
 c3 = 20*pi^4*(21*a^4*Aijsum(2,2)+10*a^2*(3*Aijsum(1,2)+4*Aijsum(6,6))*b^2+21*Aijsum(1,1)*b^4)/32*a^3*b^3;    
 
-c4 = -a^3*(3*b^2*Bijsum(1,1)+a^2*(Bijsum(1,2)+2*Bijsum(6,6)))*(-15+pi^2)/b*pi^2
+c4 = -a^3*(3*b^2*Bijsum(1,1)+a^2*(Bijsum(1,2)+2*Bijsum(6,6)))*(-15+pi^2)/b*pi^2;
 
-c5 = -b^3*(3*a^2*Bijsum(2,2)+b^2*(Bijsum(1,2)+2*Bijsum(6,6)))*(-15+pi^2)/a*pi^2
+c5 = -b^3*(3*a^2*Bijsum(2,2)+b^2*(Bijsum(1,2)+2*Bijsum(6,6)))*(-15+pi^2)/a*pi^2;
 
-c6 = 5*a^3*(Aijsum(1,1)*b^2*(15-4*pi^2)-3*a^2*(Aijsum(1,2)-Aijsum(6,6))*(-63+4*pi^2))/32*b*pi^2
+c6 = 5*a^3*(Aijsum(1,1)*b^2*(15-4*pi^2)-3*a^2*(Aijsum(1,2)-Aijsum(6,6))*(-63+4*pi^2))/32*b*pi^2;
 
-c7 = 5*b^3*(Aijsum(2,2)*a^2*(15-4*pi^2)-3*b^2*(Aijsum(1,2)-Aijsum(6,6))*(-63+4*pi^2))/32*a*pi^2
+c7 = 5*b^3*(Aijsum(2,2)*a^2*(15-4*pi^2)-3*b^2*(Aijsum(1,2)-Aijsum(6,6))*(-63+4*pi^2))/32*a*pi^2;
 
-c8 = -a*b*Pt
+c8 = -a*b*Pt;
 
 % Coefficients in the finite difference equations
 
-A1 = a0/dt^2+a1+adash/dt
-A2 = a2
-A3 = a3+a4*Wn
-A4 = a0*Udotn/dt+a0*Un/dt^2+adash*Un/dt-a5
+A1 = a0/dt^2+a1+adash/dt;
+A2 = a2;
+A3 = a3+a4*Wn;
+A4 = a0*Udotn/dt+a0*Un/dt^2+adash*Un/dt-a5;
 
-B1 = b2
-B2 = b0/dt^2+bdash/dt+b1
-B3 = b3+b4*Wn
-B4 = b0*Vdotn/dt+b0*Vn/dt^2+bdash*Vn/dt-b5
+B1 = b2;
+B2 = b0/dt^2+bdash/dt+b1;
+B3 = b3+b4*Wn;
+B4 = b0*Vdotn/dt+b0*Vn/dt^2+bdash*Vn/dt-b5;
 
-C1 = c4+c6*Wn
-C2 = c5+c7*Wn
-C3 = c0/dt^2+c1+c2*Wn+c3*Wn^2+cdash/dt
-C4 = c0*Wdotn/dt+(c0/dt^2+cdash/dt)*Wn+c8
+C1 = c4+c6*Wn;
+C2 = c5+c7*Wn;
+C3 = c0/dt^2+c1+c2*Wn+c3*Wn^2+cdash/dt;
+C4 = c0*Wdotn/dt+(c0/dt^2+cdash/dt)*Wn+c8;
 
-D1 = B2-B1*A2/A1
-D2 = B3-B1*A3/A1
-D3 = B4-B1*A4/A1
+D1 = B2-B1*A2/A1;
+D2 = B3-B1*A3/A1;
+D3 = B4-B1*A4/A1;
 
-E1 = C2-C1*A2/A1
-E2 = C3-C1*A3/A1
-E3 = C4-C1*A4/A1
-E4 = E1*D3/D1
-E5 = E2- E1*D2/D1
+E1 = C2-C1*A2/A1;
+E2 = C3-C1*A3/A1;
+E3 = C4-C1*A4/A1;
+E4 = E1*D3/D1;
+E5 = E2- E1*D2/D1;
 
 
 % Different shape (approximation) functions 
