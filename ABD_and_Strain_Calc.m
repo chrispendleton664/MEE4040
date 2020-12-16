@@ -1,32 +1,32 @@
-function StrainCurvatures = GUIReferencingMain(MatConst)
-syms U V W
+function ABD_and_Strain_Calc = MatConstants 
 % Laminate Engineering Material Constants
-% Laminate Force and Moment Instensities
-E1 = MatConst.E1;
-E2 = MatConst.E2;
-v12 = MatConst.v12;
-v21 = MatConst.v21;
-G12 = MatConst.G12;
-NumPlies = MatConst.NumPlies;
-fx = MatConst.fx;
-fy = MatConst.fy;
-fxy = MatConst.fxy;
-Nx = MatConst.Nx;
-Ny = MatConst.Ny;
-Nxy = MatConst.Nxy;
-Mx = MatConst.Mx;
-My = MatConst.My;
-Mxy = MatConst.Mxy;
-
+E1 = 181E9;
+E2 = 10.3E9;
+v12 = 0.28;
+v21 = (E2*v12)/E1;
+G12 = 7.17E9;
+fx = 0;
+fy = 0;
+fxy = 0;
 theta1 = 0;
 theta2 = 30;
 theta3 = -45;
+numPlies = 3;
 theta = [theta1,theta2,theta3];
 a = 1;
 b = 10;
 z = [-0.0075, -0.0025, 0.0025, 0.0075];
 m = cosd(theta);  
 n = sind(theta);
+
+
+% Laminate Force and Moment Instensities
+Nx = 1000;
+Ny = 1000;
+Nxy = 0;
+Mx = 0;
+My = 0;
+Mxy = 0;
 
 % Q Values
 Q11 = E1/(1-(v12*v21));
@@ -41,12 +41,12 @@ Q =  [Q11 Q12 0;
       0   0   Q33];
 
 % Q Tranformation Matrix, using 3 x 3 x i matrix, with i being 1 to
-% NumPlies
-Qb = zeros(3,3,NumPlies);
-Aij = zeros(3,3,NumPlies);
-Bij = zeros(3,3,NumPlies);
-Dij = zeros(3,3,NumPlies);
-for i = 1:NumPlies
+% numPlies
+Qb = zeros(3,3,numPlies);
+Aij = zeros(3,3,numPlies);
+Bij = zeros(3,3,numPlies);
+Dij = zeros(3,3,numPlies);
+for i = 1:numPlies
     Qt1 = [m(i)^2 n(i)^2 -2*m(i)*n(i);
           n(i)^2 m(i)^2 2*m(i)*n(i);
           m(i)*n(i) -m(i)*n(i) m(i)^2 - n(i)^2];
@@ -71,28 +71,14 @@ B = [fx; fy; fxy];
 Strain = linsolve(AQbarSum,B);
 
 % ABD Matricies sum for all plies
-Aijsum = sum(Aij,3);
-Bijsum = sum(Bij,3);
-Dijsum = sum(Dij,3);
+ABD_and_Strain_Calc.Aijsum = sum(Aij,3);
+ABD_and_Strain_Calc.Bijsum = sum(Bij,3);
+ABD_and_Strain_Calc.Dijsum = sum(Dij,3);
 % ABD Matrix 
-ABDMatrix = [Aijsum Bijsum;
-             Bijsum Dijsum];
+ABDMatrix = [ABD_and_Strain_Calc.Aijsum ABD_and_Strain_Calc.Bijsum;
+             ABD_and_Strain_Calc.Bijsum ABD_and_Strain_Calc.Dijsum];
 % Force and Moment Instensities Matrix
 FMMatrix = [Nx; Ny; Nxy; Mx; My; Mxy];
 % Laminate Strains and Curvatures
-StrainCurvatures = linsolve(ABDMatrix, FMMatrix);
-
-% Solving Time Dependent NLDE
-
-U0 = U;
-U1 = diff(U0, 1)
-U2 = diff(U0, 2)
-
-V0 = V;
-V1 = diff(V0, 1)
-V2 = diff(V0, 2)
-
-W0 = W;
-W1 = diff(W0, 1)
-W2 = diff(W0, 2)
+StrainCurvatures = linsolve(ABDMatrix, FMMatrix)
 end
