@@ -1,2 +1,0 @@
-function coef
-coef.a = 
