@@ -108,9 +108,8 @@ program main
 
   if(t.le.0.001) pt = 29000.*t
   if(t.gt.0.001) pt = 29000.- 29000.*(t-0.001)
-  if(t.gt.0.002) pt = 0.
-	  
-  if(t.gt.tp)pt=0.
+  if(t.gt.0.002) pt = 0
+
 
 
   www=w(n)
@@ -158,7 +157,7 @@ program main
 
   epsx =  0.199839*w(n+1) 
 
-  write(1,10)wn
+  write(1,10)w(n+1)
 
   enddo
 
