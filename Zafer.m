@@ -1,5 +1,8 @@
 function out = Zafer
 clc
+    
+    
+
   A11 = 47893916;
   A12 = 5268330;
   A16 = -0.7287*10.e-9;
@@ -27,7 +30,7 @@ clc
   tt=0.1;
   dt=0.000002;
   
-  Pi = 180; 
+  Pi = pi; 
 
   NM=tt/dt+1;
   NM=int32(NM); 
@@ -80,10 +83,8 @@ clc
   dt1=1/dt;
   dt2=1/dt^2;
 
-%   t=0;
+  t=0;
   
-  t = zeros(1,(NM)-1);
-  pt = zeros(1,(NM)-1);
   
   for i = 1:(NM)-1
 
@@ -91,24 +92,18 @@ clc
   v(1)=0;
   w(1)=0;    
       
-  t(i+1)= t(i)+dt
+  t= t+dt
 
-  pt(i)=(1-t(i)/tp)*exp(-alf*t(i)/tp);
+  pt=(1-t/tp)*exp(-alf*t/tp);
 
-      if(t(i)<0.001) 
-          pt(i) = 29000*t(i);
+      if(t<0.001) 
+          pt = 29000*t;
 
-      elseif((0.001<t(i))&&(t(i)<0.002)) 
-          pt(i) = 29000- 29000*(t(i)-0.001);
+      elseif((0.001<t)&&(t<0.002)) 
+          pt = 29000- 29000*(t-0.001);
       else 
-          pt(i) = 0;
-
-%       else(t>0.002) 
-%           pt = 0;
-
+          pt = 0;
       end 
-
-
 
   www=w(i);
   
@@ -128,7 +123,7 @@ clc
   CC1=c4+c6*www;
   CC2=c5+c7*www;
   CC3=dt2+c1+c2*www+c3*www^2+c0*dt1;
-  CC4=dt1*wn+(dt2+c0*dt1)*w(i)+c8*pt(i);
+  CC4=dt1*wn+(dt2+c0*dt1)*w(i)+c8*pt;
 
   D1=BB2-BB1*AA2/AA1;
   D2=BB3-BB1*AA3/AA1;
@@ -159,18 +154,13 @@ clc
   epsx =  0.199839*w(i+1);
 
   if(mod(i+49,50) == 0)
-      fileID = fopen('exp.txt','w');
+      fileID = fopen('exp.txt','a');
       fprintf(fileID,'w(i+1)\n\n');
       fprintf(fileID,'%f\n',pt);
       fclose(fileID);
-%       type exp.txt
+      type exp.txt
   end
-% 	if(mod(n+49,50).eq.0)write(1,10)w(n+1)*1e3
-%     end
- 
-% 
-% 
-% 10	 format(5e14.7)
+
   end
-  plot(t, pt);
+%   plot(t, pt);
 end  
