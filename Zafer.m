@@ -96,14 +96,13 @@ clc
 
   pt=(1-t/tp)*exp(-alf*t/tp);
 
-      if(t<0.001) 
-          pt = 29000*t;
-
-      elseif((0.001<t)&&(t<0.002)) 
-          pt = 29000- 29000*(t-0.001);
-      else 
-          pt = 0;
-      end 
+%       if(t<0.001) 
+%           pt = 29000*t;
+%       elseif((0.001<t)&&(t<0.002)) 
+%           pt = 29000- 29000*(t-0.001);
+%       else 
+%           pt = 0;
+%       end 
 
   www=w(i);
   
@@ -154,11 +153,10 @@ clc
   epsx =  0.199839*w(i+1);
 
   if(mod(i+49,50) == 0)
-      fileID = fopen('exp.txt','a');
-      fprintf(fileID,'w(i+1)\n\n');
-      fprintf(fileID,'%f\n',pt);
+      fileID = fopen('w(i+1).txt','a');
+      fprintf(fileID,'%.24f\n',w(i+1));
       fclose(fileID);
-      type exp.txt
+      type w(i+1).txt
   end
 
   end
